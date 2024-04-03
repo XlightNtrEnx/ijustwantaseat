@@ -4,7 +4,7 @@ from database import db_api
 from models.table import Table
 
 class Renderer:
-    def __init__(self, root, width=730, height=460):
+    def __init__(self, root, width=733, height=460):
         self.root = root
         
         self.heading_label = tk.Label(root, text="Seat Map of SUTD canteen", font=("Calibri", 20))
@@ -23,6 +23,8 @@ class Renderer:
 
     def render_chairs(self):
         for chair in Chair.instances:
+            if hasattr(chair, 'canvas_id'):
+                self.canvas.delete(chair.canvas_id)
             if hasattr(chair, 'coordinates'):
                 x1, y1, x2, y2 = chair.coordinates
                 fill = '#0099E5' if chair.reserved else ('#FF4C4C' if chair.occupied else '#34BF49')
