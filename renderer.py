@@ -48,10 +48,10 @@ class Renderer:
                 table.canvas_id = id
 
     def render_legend(self):
-        id_1 = self.canvas.create_rectangle(733+250, 2, 833+250, 102, fill='')
-        id_2 = self.canvas.create_rectangle(733+250+10, 2+10, 733+250+10+10, 2+10+10, fill='#0099E5')
+        id_1 = self.canvas.create_rectangle(733+250, 2, 833+250, 2+10+10+40+10, fill='')
+        id_2 = self.canvas.create_rectangle(733+250+10, 2+10, 733+250+10+10, 2+10+10, fill='#34BF49')
         id_3 = self.canvas.create_rectangle(733+250+10, 2+10+20, 733+250+10+10, 2+10+10+20, fill='#FF4C4C')
-        id_4 = self.canvas.create_rectangle(733+250+10, 2+10+40, 733+250+10+10, 2+10+10+40, fill='#34BF49')
+        id_4 = self.canvas.create_rectangle(733+250+10, 2+10+40, 733+250+10+10, 2+10+10+40, fill='#0099E5')
         self.canvas.create_text(733+250+30, 2+10+5, text="Available", anchor="w")
         self.canvas.create_text(733+250+30, 2+10+20+5, text="Occupied", anchor="w")
         self.canvas.create_text(733+250+30, 2+10+40+5, text="Reserved", anchor="w")
