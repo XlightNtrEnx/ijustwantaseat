@@ -1,3 +1,5 @@
+import random
+
 from models.chair import Chair
 from models.table import Table
 
@@ -12,7 +14,18 @@ class Loader:
     def load_chairs(self):
         coords = self.read_coords('assets/chair_coords.txt')
         for i in range(1, len(coords) + 1):
-            chair = Chair(i, int('1000' +  str(i).zfill(3)), False)
+            # Generate a random number between 0 and 1
+            rand_num = random.random()
+
+            # 60% chance
+            if rand_num < 0.6:
+                chair = Chair(i, int('1000' +  str(i).zfill(3)), False, False)
+            # 20% chance
+            elif rand_num < 0.8:
+                chair = Chair(i, int('1000' +  str(i).zfill(3)), False, True)
+            # 20% chance
+            else:
+                chair = Chair(i, int('1000' +  str(i).zfill(3)), True, False)
             Chair.instances.append(chair)
         for chair, coord in zip(Chair.instances, coords):  
             chair.coordinates = coord

@@ -5,7 +5,7 @@ class Chair():
         self.id = id
         self.user = user
         self.occupied = occupied
-        self.reserved = True
+        self.reserved = reserved
         self.shape = 'rectangle'
 
     def to_db(self):

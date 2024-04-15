@@ -59,6 +59,6 @@ class DbSyncer:
         self.db_api.seed_db()
 
     def sync(self):
-        stream = self.db_api.db.child("chairs").stream(self.handle_change)
+        self.db_api.db.child("chairs").stream(self.handle_change)
 
 db_syncer = DbSyncer(db_api)
