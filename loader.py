@@ -17,15 +17,18 @@ class Loader:
             # Generate a random number between 0 and 1
             rand_num = random.random()
 
-            # 60% chance
-            if rand_num < 0.6:
-                chair = Chair(i, int('1000' +  str(i).zfill(3)), False, False)
-            # 20% chance
-            elif rand_num < 0.8:
-                chair = Chair(i, int('1000' +  str(i).zfill(3)), False, True)
-            # 20% chance
-            else:
-                chair = Chair(i, int('1000' +  str(i).zfill(3)), True, False)
+            # 50% chance
+            if rand_num < 0.5:
+                chair = Chair(i, int('1000' +  str(i).zfill(3)), False, False, False)
+            # 22.5% chance
+            elif rand_num < 0.735:
+                chair = Chair(i, int('1000' +  str(i).zfill(3)), False, True, False)
+            # 22.5% chance
+            elif rand_num < 0.970:
+                chair = Chair(i, int('1000' +  str(i).zfill(3)), True, False, False)
+            # 3% chance
+            else: 
+                chair = Chair(i, int('1000' +  str(i).zfill(3)), True, False, True)
             Chair.instances.append(chair)
         for chair, coord in zip(Chair.instances, coords):  
             chair.coordinates = coord

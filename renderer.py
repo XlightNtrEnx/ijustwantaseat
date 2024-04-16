@@ -32,9 +32,13 @@ class Renderer:
                 #y1 = y1 + 200
                 x2 = x2 + 200
                 #y2 = y2 + 200
-                fill = '#0099E5' if chair.reserved else ('#FF4C4C' if chair.occupied else '#34BF49')
-                id = self.canvas.create_rectangle(x1, y1, x2, y2, fill=fill)
-                chair.canvas_id = id
+                if chair.sociable:
+                    id = self.create_rainbow_rectangle(x1, y1, x2, y2)
+                    chair.canvas_id = id
+                else: 
+                    fill = '#0099E5' if chair.reserved else ('#FF4C4C' if chair.occupied else '#34BF49')
+                    id = self.canvas.create_rectangle(x1, y1, x2, y2, fill=fill)
+                    chair.canvas_id = id
 
     def render_tables(self):
         for table in Table.instances:
@@ -48,13 +52,15 @@ class Renderer:
                 table.canvas_id = id
 
     def render_legend(self):
-        id_1 = self.canvas.create_rectangle(733+250, 2, 833+250, 2+10+10+40+10, fill='')
-        id_2 = self.canvas.create_rectangle(733+250+10, 2+10, 733+250+10+10, 2+10+10, fill='#34BF49')
-        id_3 = self.canvas.create_rectangle(733+250+10, 2+10+20, 733+250+10+10, 2+10+10+20, fill='#FF4C4C')
-        id_4 = self.canvas.create_rectangle(733+250+10, 2+10+40, 733+250+10+10, 2+10+10+40, fill='#0099E5')
+        id_1 = self.canvas.create_rectangle(733+250, 2, 833+238, 2+10+10+60+10, fill='')
+        id_2 = self.canvas.create_rectangle(733+250+5, 2+10, 733+250+10+10, 2+10+10, fill='#34BF49')
+        id_3 = self.canvas.create_rectangle(733+250+5, 2+10+20, 733+250+10+10, 2+10+10+20, fill='#FF4C4C')
+        id_4 = self.canvas.create_rectangle(733+250+5, 2+10+40, 733+250+10+10, 2+10+10+40, fill='#0099E5')
+        id_5 = self.create_rainbow_rectangle(733+250+5, 2+10+60, 733+250+10+10, 2+10+10+60)
         self.canvas.create_text(733+250+30, 2+10+5, text="Available", anchor="w")
         self.canvas.create_text(733+250+30, 2+10+20+5, text="Occupied", anchor="w")
         self.canvas.create_text(733+250+30, 2+10+40+5, text="Reserved", anchor="w")
+        self.canvas.create_text(733+250+30, 2+10+60+5, text="Sociable", anchor="w")
         
                 
     def center_ui(self):
@@ -71,6 +77,15 @@ class Renderer:
         # Place the canvas and heading label at the centered position
         self.canvas.place(x=x, y=y)
         self.heading_label.place(relx=0.5, rely=0.1, anchor=tk.CENTER)
+
+    def create_rainbow_rectangle(self, x1, y1, x2, y2):
+        colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#8B00FF']  # Rainbow colors
+        rectangle_width = (x2 - x1) / len(colors)
+
+        for i, color in enumerate(colors):
+            rect_x1 = x1 + i * rectangle_width
+            rect_x2 = rect_x1 + rectangle_width
+            self.canvas.create_rectangle(rect_x1, y1, rect_x2, y2, fill=color)
     
     def loops(self):
         # TODO: optimize this such that only the chairs that have changed are re-rendered
