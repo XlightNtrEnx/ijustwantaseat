@@ -53,6 +53,8 @@ class DbSyncer:
                     chair.occupied = final_data
                 elif attribute_changed == 'reserved':
                     chair.reserved = final_data
+                elif attribute_changed == "sociable":
+                    chair.sociable = final_data
                 break
 
     def seed_db(self):

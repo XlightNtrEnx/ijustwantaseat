@@ -26,6 +26,9 @@ class Renderer:
         for chair in Chair.instances:
             if hasattr(chair, 'canvas_id'):
                 self.canvas.delete(chair.canvas_id)
+            if hasattr(chair, 'canvas_ids'):
+                for id in chair.canvas_ids:
+                    self.canvas.delete(id)
             if hasattr(chair, 'coordinates'):
                 x1, y1, x2, y2 = chair.coordinates
                 x1 = x1 + 200
@@ -33,8 +36,8 @@ class Renderer:
                 x2 = x2 + 200
                 #y2 = y2 + 200
                 if chair.sociable:
-                    id = self.create_rainbow_rectangle(x1, y1, x2, y2)
-                    chair.canvas_id = id
+                    ids = self.create_rainbow_rectangle(x1, y1, x2, y2)
+                    chair.canvas_ids = ids
                 else: 
                     fill = '#0099E5' if chair.reserved else ('#FF4C4C' if chair.occupied else '#34BF49')
                     id = self.canvas.create_rectangle(x1, y1, x2, y2, fill=fill)
@@ -81,11 +84,15 @@ class Renderer:
     def create_rainbow_rectangle(self, x1, y1, x2, y2):
         colors = ['#FF0000', '#FF7F00', '#FFFF00', '#00FF00', '#0000FF', '#4B0082', '#8B00FF']  # Rainbow colors
         rectangle_width = (x2 - x1) / len(colors)
+        ids = []
 
         for i, color in enumerate(colors):
             rect_x1 = x1 + i * rectangle_width
             rect_x2 = rect_x1 + rectangle_width
-            self.canvas.create_rectangle(rect_x1, y1, rect_x2, y2, fill=color)
+            id = self.canvas.create_rectangle(rect_x1, y1, rect_x2, y2, fill=color)
+            ids.append(id)
+        return ids
+
     
     def loops(self):
         # TODO: optimize this such that only the chairs that have changed are re-rendered

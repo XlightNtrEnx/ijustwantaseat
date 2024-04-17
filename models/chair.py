@@ -13,5 +13,6 @@ class Chair():
             "id": self.id,
             "user": self.user,
             "occupied": self.occupied,
-            "reserved": self.reserved
+            "reserved": self.reserved,
+            "sociable": self.sociable,
         }
