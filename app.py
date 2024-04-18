@@ -15,8 +15,8 @@ class App:
         self.loader = Loader()
         self.renderer = Renderer(self.root)
         self.db_syncer = db_syncer
-        db_syncer.seed_db()
-        db_syncer.sync() # listens for changes does not loop
+        db_syncer.seed()
+        db_syncer.poll() # listens for changes does not loop
         self.loop(1000, self.renderer.loops)
 
         # start app

@@ -22,7 +22,7 @@ class DatabaseAPI:
     def __init__(self, db) -> None:
         self.db = db
 
-    def seed_db(self):
+    def seed(self):
         self.db.child("chairs").remove()
         if Chair.instances: 
             for i, chair in enumerate(Chair.instances):
@@ -32,6 +32,9 @@ class DatabaseAPI:
         
     def get_chairs(self):
         return self.db.child("chairs").get().each()
+    
+    def poll_chairs(self, handler):
+        db.child("chairs").stream(handler)
         
 db_api = DatabaseAPI(db)
 
@@ -57,10 +60,10 @@ class DbSyncer:
                     chair.sociable = final_data
                 break
 
-    def seed_db(self):
-        self.db_api.seed_db()
+    def seed(self):
+        self.db_api.seed()
 
-    def sync(self):
-        self.db_api.db.child("chairs").stream(self.handle_change)
+    def poll(self):
+        self.db_api.poll_chairs(self.handle_change)
 
 db_syncer = DbSyncer(db_api)

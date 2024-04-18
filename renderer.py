@@ -21,6 +21,7 @@ class Renderer:
         self.render_chairs()
         self.render_tables()
         self.render_legend()
+        self.render_focus_circle()
 
     def render_chairs(self):
         for chair in Chair.instances:
@@ -64,6 +65,9 @@ class Renderer:
         self.canvas.create_text(733+250+30, 2+10+20+5, text="Occupied", anchor="w")
         self.canvas.create_text(733+250+30, 2+10+40+5, text="Reserved", anchor="w")
         self.canvas.create_text(733+250+30, 2+10+60+5, text="Sociable", anchor="w")
+
+    def render_focus_circle(self):
+        self.canvas.create_oval(3+182, 2, 38+218, 73, outline="red")
         
                 
     def center_ui(self):
